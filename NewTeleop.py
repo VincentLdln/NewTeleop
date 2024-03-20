@@ -1,3 +1,8 @@
+#!/usr/bin/env python3
+"""
+This node allows you to control the car with your pad
+You are in a computer science school, you will understand this code without my help :)
+"""
 import serial
 import os
 from getkey import getkey, keys
@@ -49,9 +54,9 @@ class TeleopProg():
         self.print("Error : USB path not found")
 
     def rcv_order(self, order):
-        if (order.type == "speed"):
+        if (order == "speed"):
             self.changePWMSpeed()
-        elif (order.type == "angular"):
+        elif (order == "angular"):
             self.changePWMDir()
         else:
             print("invalide type")
@@ -96,14 +101,14 @@ class TeleopProg():
             while (self.linearSpeed >= HIGH_LIMIT_SPEED) :
                 print("reached limit")
                 self.linearSpeed -= SPEED_STEP
-            self.rcv_order(self, "speed")
+            self.rcv_order("speed")
         elif (key == keys.DOWN):
             print("Slowing down"+str(self.linearSpeed - SPEED_STEP))
             self.linearSpeed -= SPEED_STEP
             while (self.linearSpeed <= LOW_LIMIT_SPEED) :
                 print("reached limit")
                 self.linearSpeed += SPEED_STEP
-            self.rcv_order(self, "speed")
+            self.rcv_order("speed")
 
         #Angle control
         elif (key == keys.RIGHT):
@@ -112,14 +117,14 @@ class TeleopProg():
             while self.angularPos >= HIGH_LIMIT_ANG :
                 print("reached limit")
                 self.angularPos -= ANGLE_STEP
-            self.rcv_order(self, "angular")
+            self.rcv_order("angular")
         elif (key == keys.LEFT):
             print("Turning right"+str(self.angularPos - ANGLE_STEP))
             self.angularPos -= ANGLE_STEP
             while self.angularPos <= LOW_LIMIT_ANG :
                 print("reached limit")
                 self.angularPos += ANGLE_STEP
-            self.rcv_order(self, "angular")
+            self.rcv_order("angular")
 
         elif (key == 'I'):
             print("linear speed:" + str(self.linearSpeed))
