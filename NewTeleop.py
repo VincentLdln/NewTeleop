@@ -69,12 +69,12 @@ class TeleopProg():
     
     def changePWMSpeed(self):
         order_type = 98
-        arg = min(abs(self.linearSpeed), SPEED_LIMIT)/255
+        arg = min(abs(self.linearSpeed), SPEED_LIMIT)
         self.sendOrder(98, arg)
         
     def changePWMDir(self):
         order_type = 97
-        arg = (min(abs(self.angularPos), ANGLE_LIMIT)/45)-1
+        arg = (min(abs(self.angularPos), ANGLE_LIMIT))
         self.sendOrder(97, arg)
         
     def sendOrder(self, octet1: int, octet2: int):  # octet1 and octet2 should not be more that 8 bits
